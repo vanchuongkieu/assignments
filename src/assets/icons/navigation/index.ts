@@ -1,0 +1,23 @@
+export { ReactComponent as AppleWatchIcon } from "./apple-watch.svg";
+export { ReactComponent as CurrentLocationIcon } from "./current-location.svg";
+export { ReactComponent as ExploreIcon } from "./explore.svg";
+export { ReactComponent as GlobeIcon } from "./globe.svg";
+
+export { ReactComponent as IpadIcon } from "./ipad.svg";
+export { ReactComponent as IphoneIcon } from "./iphone.svg";
+export { ReactComponent as IpodIcon } from "./ipod.svg";
+export { ReactComponent as LaptopIcon } from "./laptop.svg";
+export { ReactComponent as LocationCheckIcon } from "./location-check.svg";
+export { ReactComponent as LocationPlusIcon } from "./location-plus.svg";
+export { ReactComponent as LocationQuestionIcon } from "./location-question.svg";
+export { ReactComponent as LocationIcon } from "./location.svg";
+export { ReactComponent as MapLocationIcon } from "./map-location.svg";
+export { ReactComponent as NavigationIcon } from "./navigation.svg";
+export { ReactComponent as NewpaperIcon } from "./newpaper.svg";
+export { ReactComponent as NotiIcon } from "./noti.svg";
+export { ReactComponent as OldPhoneIcon } from "./old-phone.svg";
+export { ReactComponent as OldIcon } from "./old.svg";
+export { ReactComponent as PcIcon } from "./pc.svg";
+export { ReactComponent as SmartHomeIcon } from "./smart-home.svg";
+export { ReactComponent as TvIcon } from "./tv.svg";
+export { ReactComponent as TypeCIcon } from "./type-c.svg";

@@ -1,0 +1,30 @@
+const fs = require("fs");
+
+function replaceString(str) {
+  return str
+    .toLowerCase()
+    .replace(/(?:^\w|[A-Z]|\b\w)/g, (ltr) => ltr.toUpperCase())
+    .replace(/\s+/g, "")
+    .replaceAll("-", "");
+}
+try {
+  fs.writeFileSync("./index.ts", "");
+  const iconsExport = fs
+    .readdirSync("./", { withFileTypes: true })
+    .filter((dirent) => dirent.isDirectory())
+    .map(({ name: direntName }) => {
+      const dirname = __dirname + "/" + direntName;
+      const mapExport = fs.readdirSync(dirname).map((filenName) => {
+        if (filenName.includes(".svg")) {
+          const name = replaceString(filenName.replace(".svg", ""));
+          return `export { ReactComponent as ${name}Icon } from "./${filenName}";`;
+        }
+      });
+      fs.writeFileSync(dirname + "/index.ts", "");
+      fs.writeFileSync(dirname + "/index.ts", mapExport.join("\n"));
+      return `export * from "./${direntName}";`;
+    });
+  fs.writeFileSync("./index.ts", iconsExport.join("\n"));
+} catch (error) {
+  console.log(error);
+}

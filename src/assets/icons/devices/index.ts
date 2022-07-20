@@ -1,0 +1,20 @@
+export { ReactComponent as BatteryEmptyIcon } from "./battery-empty.svg";
+export { ReactComponent as BatteryFullIcon } from "./battery-full.svg";
+export { ReactComponent as BatteryLowIcon } from "./battery-low.svg";
+export { ReactComponent as BatteryMostIcon } from "./battery-most.svg";
+export { ReactComponent as BatteryQuarterIcon } from "./battery-quarter.svg";
+export { ReactComponent as BattryHalfIcon } from "./battry-half.svg";
+export { ReactComponent as BinocularIcon } from "./binocular.svg";
+export { ReactComponent as CameraIcon } from "./camera.svg";
+export { ReactComponent as DesktopIcon } from "./desktop.svg";
+export { ReactComponent as DialpadIcon } from "./dialpad.svg";
+export { ReactComponent as GamepadIcon } from "./gamepad.svg";
+
+export { ReactComponent as MobilePhoneIcon } from "./mobile-phone.svg";
+export { ReactComponent as MouseAltIcon } from "./mouse-alt.svg";
+export { ReactComponent as MouseIcon } from "./mouse.svg";
+export { ReactComponent as PrinterIcon } from "./printer.svg";
+export { ReactComponent as ProcessorIcon } from "./processor.svg";
+export { ReactComponent as ServerIcon } from "./server.svg";
+export { ReactComponent as VideoIcon } from "./video.svg";
+export { ReactComponent as WatchIcon } from "./watch.svg";

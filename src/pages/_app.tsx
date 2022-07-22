@@ -11,17 +11,6 @@ import Home from "./Home";
 import Product from "./Product";
 
 const App = () => {
-  const [categories, setCategories] = useState<CategoryDto[]>([]);
-
-  const fetchCategoryData = async () => {
-    const { data } = await categoryService.all();
-    setCategories(data);
-  };
-
-  useEffect(() => {
-    fetchCategoryData();
-  }, []);
-
   return (
     <Routes>
       <Route path="/" element={<ClientLayout />}>
@@ -31,22 +20,11 @@ const App = () => {
       <Route path="/admin" element={<AdminLayout />}>
         <Route index element={<Navigate to="/admin/product" />} />
         <Route path="product">
-          <Route index element={<ProductList categories={categories} />} />
-          <Route path="new" element={<ProductAdd categories={categories} />} />
-          <Route
-            path=":id/edit"
-            element={<ProductEdit categories={categories} />}
-          />
+          <Route index element={<ProductList />} />
+          <Route path="new" element={<ProductAdd />} />
+          <Route path=":id/edit" element={<ProductEdit />} />
         </Route>
-        <Route
-          path="category"
-          element={
-            <CategoryList
-              categories={categories}
-              setCategories={setCategories}
-            />
-          }
-        />
+        <Route path="category" element={<CategoryList />} />
       </Route>
     </Routes>
   );

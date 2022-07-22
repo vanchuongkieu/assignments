@@ -5,11 +5,16 @@ class ProductService {
   all() {
     return http.get<ProductDto[]>("/products");
   }
+  search(keyword: string) {
+    return http.get<ProductDto[]>(
+      "/products?name_like=" + keyword + "&_limit=10"
+    );
+  }
   all_active() {
     return http.get<ProductDto[]>("/products?status=true");
   }
-  all_by_category(id: number) {
-    return http.get<ProductDto[]>(`/products?category=${id}&status=true`);
+  filter_by_category(id: number) {
+    return http.get<ProductDto[]>(`/products?category=${id}`);
   }
   get(id?: string) {
     return http.get<ProductDto>(`/products/${id}`);

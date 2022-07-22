@@ -1,5 +1,6 @@
 import Upload from "@/components/Upload";
 import constants from "@/constants/constants";
+import categoryService from "@/services/category.service";
 import { CategoryDto } from "@/services/dtos/Category.dto";
 import { ProductDto } from "@/services/dtos/Product.dto";
 import productServices from "@/services/product.services";
@@ -17,20 +18,28 @@ import {
   Typography,
 } from "antd";
 import axios from "axios";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 const { Title, Text } = Typography;
 const { TextArea } = Input;
 
-type Props = {
-  categories?: CategoryDto[];
-};
+type Props = {};
 
-const ProductAdd = ({ categories }: Props) => {
+const ProductAdd = (props: Props) => {
   const navigate = useNavigate();
   const [form] = Form.useForm<ProductDto>();
   const [file, setFile] = useState<File | null>(null);
+  const [categories, setCategories] = useState<CategoryDto[]>([]);
+
+  const fetchCategoryData = async () => {
+    const { data } = await categoryService.all();
+    setCategories(data);
+  };
+
+  useEffect(() => {
+    fetchCategoryData();
+  }, []);
 
   const onFinish = (data: ProductDto) => {
     if (!file) {

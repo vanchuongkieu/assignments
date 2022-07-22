@@ -8,7 +8,7 @@ export const StyledSider = styled(Slider)`
   background: #ffffff;
   box-shadow: 0px 2px 150px rgba(90, 97, 105, 0.1);
   transition: none;
-  z-index: 999;
+  z-index: 888;
 
   & .ant-layout-sider-zero-width-trigger {
     background: var(--info-2);

@@ -3,8 +3,8 @@ import Menu from "@/components/Menu";
 import ListProduct from "@/components/Product/List";
 import Title from "@/components/Title";
 import { StyledContainer } from "@/layouts/client/StyledLayout";
+import categoryService from "@/services/category.service";
 import { ProductDto } from "@/services/dtos/Product.dto";
-import productServices from "@/services/product.services";
 import { useEffect, useState } from "react";
 import styled from "styled-components";
 
@@ -29,7 +29,7 @@ const Home = (props: Props) => {
   const [products, setProducts] = useState<ProductDto[]>();
 
   const fetchProductData = async () => {
-    const { data } = await productServices.all_by_category(1);
+    const { data } = await categoryService.get_product(1);
     setProducts(data);
   };
 

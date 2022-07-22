@@ -1,5 +1,6 @@
 import Upload from "@/components/Upload";
 import constants from "@/constants/constants";
+import categoryService from "@/services/category.service";
 import { CategoryDto } from "@/services/dtos/Category.dto";
 import { ProductDto } from "@/services/dtos/Product.dto";
 import productServices from "@/services/product.services";
@@ -23,16 +24,24 @@ import { useNavigate, useParams } from "react-router-dom";
 const { Title, Text } = Typography;
 const { TextArea } = Input;
 
-type Props = {
-  categories?: CategoryDto[];
-};
+type Props = {};
 
-const ProductEdit = ({ categories }: Props) => {
+const ProductEdit = (props: Props) => {
   const { id } = useParams();
   const navigate = useNavigate();
   const [form] = Form.useForm<ProductDto>();
   const [product, setProduct] = useState<ProductDto>();
   const [file, setFile] = useState<File | null>();
+  const [categories, setCategories] = useState<CategoryDto[]>([]);
+
+  const fetchCategoryData = async () => {
+    const { data } = await categoryService.all();
+    setCategories(data);
+  };
+
+  useEffect(() => {
+    fetchCategoryData();
+  }, []);
 
   const fetchProductData = async () => {
     const { data } = await productServices.get(id);
@@ -68,7 +77,7 @@ const ProductEdit = ({ categories }: Props) => {
 
   return (
     <>
-      <Title level={3}>Thêm mới Sản phẩm</Title>
+      <Title level={3}>Cập nhật sản phẩm</Title>
       <Form form={form} layout="vertical" onFinish={onFinish}>
         <Row gutter={[40, 15]}>
           <Col xs={{ span: 24 }} xxl={{ span: 8 }}>

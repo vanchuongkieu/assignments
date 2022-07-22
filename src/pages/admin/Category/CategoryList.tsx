@@ -17,15 +17,23 @@ import { Dispatch, SetStateAction, useEffect, useState } from "react";
 
 const { Title } = Typography;
 
-interface Props {
-  categories: CategoryDto[];
-  setCategories: Dispatch<SetStateAction<CategoryDto[]>>;
-}
+interface Props {}
 
-const CategoryList = ({ categories, setCategories }: Props) => {
+const CategoryList = (props: Props) => {
   const [form] = Form.useForm<CategoryDto>();
   const [isLoading, setLoading] = useState<boolean>(true);
   const [editing, setEditing] = useState<CategoryDto | null>(null);
+  const [categories, setCategories] = useState<CategoryDto[]>([]);
+
+  const fetchCategoryData = async () => {
+    const { data } = await categoryService.all();
+    setCategories(data);
+    setLoading(false);
+  };
+
+  useEffect(() => {
+    fetchCategoryData();
+  }, []);
 
   const columns: ColumnType<any>[] = [
     {
@@ -58,24 +66,16 @@ const CategoryList = ({ categories, setCategories }: Props) => {
     form.resetFields();
   };
 
-  useEffect(() => {
-    setLoading(!categories);
-  }, [categories]);
-
   const onFinish = async (value: CategoryDto) => {
     message.loading({ content: "Đang tải", key: "handling" });
     if (editing) {
-      const { data } = await categoryService.edit({ ...editing, ...value });
-      const mapping = categories.map((category) =>
-        category.id === editing.id ? data : category
-      );
-      setCategories(mapping);
+      await categoryService.edit({ ...editing, ...value });
       setEditing(null);
     } else {
-      const { data } = await categoryService.add(value);
-      setCategories([...categories, data]);
+      await categoryService.add(value);
     }
     form.resetFields();
+    fetchCategoryData();
     message.success({ content: "Thực hiện thành công", key: "handling" });
   };
 

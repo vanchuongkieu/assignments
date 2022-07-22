@@ -23,6 +23,18 @@
     {
       "name": "Tivi",
       "id": 6
+    },
+    {
+      "id": 7,
+      "name": "edsfdsfdsf 3r 23 2342 "
+    },
+    {
+      "name": "saddssadsdasdasdasda",
+      "id": 8
+    },
+    {
+      "id": 9,
+      "name": "34234242sdsdfsfsdf"
     }
   ],
   "products": [
@@ -36,7 +48,8 @@
       "status": true,
       "outstanding_features": "Lorem ipsum dolor sit amet consectetur adipisicing elit.",
       "description": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Eos corrupti delectus quae nesciunt assumenda incidunt exercitationem quidem repellat, praesentium aliquam libero officiis magni possimus blanditiis ut quaerat commodi natus maxime?",
-      "id": 1
+      "id": 1,
+      "key": 0
     },
     {
       "id": 2,
@@ -49,7 +62,8 @@
       "status": true,
       "description": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Eos corrupti delectus quae nesciunt assumenda incidunt exercitationem quidem repellat, praesentium aliquam libero officiis magni possimus blanditiis ut quaerat commodi natus maxime?",
       "short_description": "Lorem ipsum dolor sit amet consectetur adipisicing elit.",
-      "outstanding_features": "Lorem ipsum dolor sit amet consectetur adipisicing elit."
+      "outstanding_features": "Lorem ipsum dolor sit amet consectetur adipisicing elit.",
+      "key": 1
     },
     {
       "image": "https://res.cloudinary.com/lavana/image/upload/v1658327358/dkjiuxehytl4zioe8apj.png",
@@ -61,7 +75,8 @@
       "outstanding_features": "Lorem ipsum dolor sit amet consectetur adipisicing elit.",
       "description": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Eos corrupti delectus quae nesciunt assumenda incidunt exercitationem quidem repellat, praesentium aliquam libero officiis magni possimus blanditiis ut quaerat commodi natus maxime?",
       "id": 3,
-      "status": true
+      "status": true,
+      "key": 2
     },
     {
       "short_description": "adasdasdasdasd",
@@ -73,7 +88,8 @@
       "image": "https://res.cloudinary.com/lavana/image/upload/v1658326707/vzfexz768qslvieudzpz.png",
       "id": 4,
       "new_price": 3232321,
-      "status": true
+      "status": true,
+      "key": 3
     },
     {
       "image": "https://res.cloudinary.com/lavana/image/upload/v1658326738/jkqupui6nmvk43rwtfj8.png",
@@ -85,7 +101,8 @@
       "outstanding_features": "Lorem ipsum dolor sit amet consectetur adipisicing elit.",
       "description": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Eos corrupti delectus quae nesciunt assumenda incidunt exercitationem quidem repellat, praesentium aliquam libero officiis magni possimus blanditiis ut quaerat commodi natus maxime?",
       "id": 8,
-      "status": true
+      "status": false,
+      "key": 4
     },
     {
       "short_description": "adasdasdasdasd",
@@ -97,7 +114,8 @@
       "image": "https://res.cloudinary.com/lavana/image/upload/v1658326754/qomddzumeblczziqxeuf.png",
       "id": 5,
       "new_price": 3232321,
-      "status": true
+      "status": true,
+      "key": 5
     },
     {
       "image": "https://res.cloudinary.com/lavana/image/upload/v1658326761/k1mxeqqupqfwu143ealg.png",
@@ -109,7 +127,8 @@
       "outstanding_features": "Lorem ipsum dolor sit amet consectetur adipisicing elit.",
       "description": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Eos corrupti delectus quae nesciunt assumenda incidunt exercitationem quidem repellat, praesentium aliquam libero officiis magni possimus blanditiis ut quaerat commodi natus maxime?",
       "id": 9,
-      "status": true
+      "status": true,
+      "key": 6
     },
     {
       "short_description": "adasdasdasdasd",
@@ -121,7 +140,8 @@
       "image": "https://res.cloudinary.com/lavana/image/upload/v1658326773/ud0u2wedsgxaqzjvgfh5.png",
       "id": 6,
       "new_price": 323232,
-      "status": true
+      "status": true,
+      "key": 7
     },
     {
       "short_description": "adasdasdasdasd x",
@@ -133,7 +153,8 @@
       "image": "https://res.cloudinary.com/lavana/image/upload/v1658326780/yaweblvqn4ktmgz8hren.png",
       "id": 7,
       "new_price": 3232321,
-      "status": true
+      "status": true,
+      "key": 8
     },
     {
       "short_description": "sadasdádasd",
@@ -145,7 +166,8 @@
       "description": "sadádasdsadád",
       "image": "https://res.cloudinary.com/lavana/image/upload/v1658326788/znjmzkgy871ucsdugsty.png",
       "id": 10,
-      "status": true
+      "status": true,
+      "key": 9
     }
   ]
 }

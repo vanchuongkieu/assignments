@@ -1,5 +1,6 @@
 import { AddIcon, EditIcon } from "@/assets/icons";
 import Table from "@/components/Table";
+import categoryService from "@/services/category.service";
 import { CategoryDto } from "@/services/dtos/Category.dto";
 import { ProductDto } from "@/services/dtos/Product.dto";
 import productServices from "@/services/product.services";
@@ -56,20 +57,15 @@ const SwitchCustom = styled(Switch)`
   }
 `;
 
-interface Props {
-  categories?: CategoryDto[];
-}
+interface Props {}
 
-const ProductList = ({ categories }: Props) => {
+const ProductList = (props: Props) => {
   const navigate = useNavigate();
   const [searchParams] = useSearchParams();
   const [isLoading, setLoading] = useState<boolean>(true);
   const [products, setProducts] = useState<ProductDto[]>([]);
   const [filterValue, setFilterValue] = useState<number>();
-
-  const currency = (value: number) => {
-    return value.toLocaleString("it-IT") + " đ";
-  };
+  const [categories, setCategories] = useState<CategoryDto[]>([]);
 
   const columns: ColumnType<any>[] = [
     {
@@ -135,6 +131,15 @@ const ProductList = ({ categories }: Props) => {
     message.success({ content: "Thực hiện thành công", key: "handling" });
   };
 
+  const currency = (value: number) => {
+    return value.toLocaleString("it-IT") + " đ";
+  };
+
+  const fetchCategoryData = async () => {
+    const { data } = await categoryService.all();
+    setCategories(data);
+  };
+
   const fetchProductData = async () => {
     const { data } = await productServices.all();
     setProducts(data);
@@ -142,8 +147,12 @@ const ProductList = ({ categories }: Props) => {
   };
 
   useEffect(() => {
-    fetchProductData();
+    fetchCategoryData();
   }, []);
+
+  useEffect(() => {
+    filterProduct();
+  }, [filterValue]);
 
   useEffect(() => {
     const categoryParam = searchParams.get("category");
@@ -153,13 +162,13 @@ const ProductList = ({ categories }: Props) => {
     }
   }, [searchParams]);
 
-  const filterProduct = (dataSource?: ProductDto[]) => {
+  const filterProduct = async () => {
     if (filterValue) {
-      return dataSource?.filter(
-        (data) => data.category === Number(filterValue)
-      );
+      const { data } = await productServices.filter_by_category(filterValue);
+      setProducts(data);
+    } else {
+      fetchProductData();
     }
-    return dataSource;
   };
 
   const CategorySelect = () => {
@@ -211,11 +220,7 @@ const ProductList = ({ categories }: Props) => {
           </Row>
         </Col>
         <Col span={24}>
-          <Table
-            columns={columns}
-            loading={isLoading}
-            dataSource={filterProduct(products)}
-          />
+          <Table columns={columns} loading={isLoading} dataSource={products} />
         </Col>
       </Row>
     </>

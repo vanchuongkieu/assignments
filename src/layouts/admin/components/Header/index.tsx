@@ -1,12 +1,7 @@
-import {
-  StyledHeader,
-  StyledLogo,
-  StyledSearch,
-  StytedUser,
-} from "./StyledHeader";
+import { StyledHeader, StyledLogo, StytedUser } from "./StyledHeader";
 import LogoImage from "@/assets/images/logo/logo.png";
-import { SearchIcon } from "@/assets/icons";
 import { Link } from "react-router-dom";
+import Search from "../Search";
 
 const Header = () => {
   return (
@@ -17,18 +12,7 @@ const Header = () => {
         </Link>
         <span>Dashboard</span>
       </StyledLogo>
-      <StyledSearch>
-        <form className="search-form">
-          <input
-            type="text"
-            className="search-form-input"
-            placeholder="Nhập từ khóa tìm kiếm..."
-          />
-          <div className="search-form-icon">
-            <SearchIcon />
-          </div>
-        </form>
-      </StyledSearch>
+      <Search />
       <StytedUser>Xin chào: Kiều Văn Chương</StytedUser>
     </StyledHeader>
   );

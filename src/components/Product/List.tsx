@@ -33,7 +33,7 @@ const List = ({ col, products, basic }: Props) => {
   return (
     <StyledList col={col} basic={basic}>
       {products?.map((product) => (
-        <Item product={product} key={product.id} basic={basic} />
+        <Item product={product} key={product._id} basic={basic} />
       ))}
     </StyledList>
   );

@@ -30,57 +30,6 @@ export const StyledLogo = styled.div`
   }
 `;
 
-export const StyledSearch = styled.div`
-  max-width: 500px;
-  width: 100%;
-  margin-left: 65px;
-
-  @media (max-width: 768px) {
-    margin-left: 30px;
-  }
-
-  & .search-form {
-    width: 100%;
-    height: 35px;
-    position: relative;
-
-    &-input {
-      width: 100%;
-      height: 100%;
-      outline: none;
-      border: 0;
-      border-radius: 10px;
-      position: absolute;
-      left: 0;
-      top: 0;
-      z-index: 2;
-      padding-left: 40px;
-      padding-right: 15px;
-      text-overflow: ellipsis;
-    }
-
-    &-icon {
-      height: 100%;
-      width: 40px;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      position: absolute;
-      top: 0;
-      left: 0;
-      z-index: 3;
-      font-size: inherit;
-
-      & svg {
-        width: 15px;
-        height: 15px;
-        fill: var(--color);
-        margin-bottom: -1px;
-      }
-    }
-  }
-`;
-
 export const StytedUser = styled.a`
   margin-left: auto;
   font-weight: bold;

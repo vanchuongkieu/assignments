@@ -1,5 +1,8 @@
+import { type } from "os";
+import { CategoryDto } from "./Category.dto";
+
 export interface ProductDto {
-  id: number;
+  _id?: string;
   name: string;
   image: string;
   price: number;
@@ -8,6 +11,15 @@ export interface ProductDto {
   description: string;
   short_description: string;
   outstanding_features: string;
-  category: number;
+  category: CategoryDto;
   status: boolean;
+}
+
+type CategoyProduct = CategoryDto & {
+  products: ProductDto[];
+};
+
+export interface HomeDataDto {
+  products: ProductDto[];
+  productsCategories: CategoyProduct[];
 }

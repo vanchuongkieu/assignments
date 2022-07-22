@@ -13,7 +13,7 @@ import {
   Typography,
 } from "antd";
 import { ColumnType } from "antd/lib/table";
-import { Dispatch, SetStateAction, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 
 const { Title } = Typography;
 
@@ -57,8 +57,8 @@ const CategoryList = (props: Props) => {
   ];
 
   const onEdit = (record: CategoryDto) => {
-    setEditing({ id: record.id, name: record.name });
     form.setFieldsValue(record);
+    setEditing(record);
   };
 
   const onCancelEdit = () => {

@@ -64,14 +64,22 @@ const ProductList = (props: Props) => {
   const [searchParams] = useSearchParams();
   const [isLoading, setLoading] = useState<boolean>(true);
   const [products, setProducts] = useState<ProductDto[]>([]);
-  const [filterValue, setFilterValue] = useState<number>();
+  const [filterValue, setFilterValue] = useState<string | null>(null);
   const [categories, setCategories] = useState<CategoryDto[]>([]);
 
   const columns: ColumnType<any>[] = [
     {
       title: "Tên sản phẩm",
       dataIndex: "name",
+      width: "17%",
       align: "center",
+    },
+    {
+      title: "Danh mục",
+      align: "center",
+      render: (_: any, { category }: ProductDto) => (
+        <Text>{category.name}</Text>
+      ),
     },
     {
       title: "Giá tiền",
@@ -90,6 +98,11 @@ const ProductList = (props: Props) => {
       align: "center",
       dataIndex: "short_description",
       responsive: ["md"],
+      render: (value) => (
+        <div style={{ wordBreak: "break-all" }}>
+          <span>{value}</span>
+        </div>
+      ),
     },
     {
       title: "Ẩn/Hiện",
@@ -109,7 +122,7 @@ const ProductList = (props: Props) => {
       width: "10%",
       render: (_: any, record: ProductDto) => (
         <Link
-          to={`/admin/product/${record.id}/edit`}
+          to={`/admin/product/${record._id}/edit`}
           style={{ height: 22, display: "flex", justifyContent: "center" }}
         >
           <EditIcon width={22} height={22} />
@@ -125,7 +138,7 @@ const ProductList = (props: Props) => {
       status: !values.status,
     });
     const mapping = products?.map((product) =>
-      product.id === data.id ? data : product
+      product._id === data._id ? data : product
     );
     setProducts(mapping);
     message.success({ content: "Thực hiện thành công", key: "handling" });
@@ -156,10 +169,7 @@ const ProductList = (props: Props) => {
 
   useEffect(() => {
     const categoryParam = searchParams.get("category");
-    setFilterValue(Number(categoryParam));
-    if (Number(categoryParam) > 4) {
-      navigate("/admin/product");
-    }
+    setFilterValue(categoryParam);
   }, [searchParams]);
 
   const filterProduct = async () => {
@@ -179,12 +189,11 @@ const ProductList = (props: Props) => {
         onChange={setFilterValue}
         value={filterValue}
         disabled={!!searchParams.get("category")}
-        defaultValue={0}
         allowClear
       >
         <Select.Option value={0}>Lựa chọn</Select.Option>
         {categories?.map((category) => (
-          <Select.Option value={category.id} key={category.id}>
+          <Select.Option value={category.name_ascii} key={category.name_ascii}>
             {category.name}
           </Select.Option>
         ))}
@@ -220,7 +229,13 @@ const ProductList = (props: Props) => {
           </Row>
         </Col>
         <Col span={24}>
-          <Table columns={columns} loading={isLoading} dataSource={products} />
+          <Table
+            pagination={{ pageSize: 10 }}
+            onChange={console.log}
+            columns={columns}
+            loading={isLoading}
+            dataSource={products}
+          />
         </Col>
       </Row>
     </>

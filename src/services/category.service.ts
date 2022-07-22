@@ -6,17 +6,20 @@ class CategoryService {
   all() {
     return http.get<CategoryDto[]>("/categories");
   }
-  get(id: number): Promise<CategoryDto> {
-    return http.get(`/categories/${id}`);
+  get(id: number) {
+    return http.get<CategoryDto>(`/categories/find-category-by-id/${id}`);
   }
   get_product(id: number) {
     return http.get<ProductDto[]>(`/categories/${id}/products?status=true`);
   }
   add(payload: CategoryDto) {
-    return http.post<CategoryDto>(`/categories`, payload);
+    return http.post<CategoryDto>(`/categories/create-category`, payload);
   }
   edit(payload: CategoryDto) {
-    return http.put<CategoryDto>(`/categories/${payload.id}`, payload);
+    return http.put<CategoryDto>(
+      `/categories/update-category/${payload._id}`,
+      payload
+    );
   }
 }
 

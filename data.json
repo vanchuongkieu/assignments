@@ -101,7 +101,7 @@
       "outstanding_features": "Lorem ipsum dolor sit amet consectetur adipisicing elit.",
       "description": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Eos corrupti delectus quae nesciunt assumenda incidunt exercitationem quidem repellat, praesentium aliquam libero officiis magni possimus blanditiis ut quaerat commodi natus maxime?",
       "id": 8,
-      "status": false,
+      "status": true,
       "key": 4
     },
     {

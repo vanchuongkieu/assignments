@@ -35,6 +35,7 @@ const Title = styled.div`
   -webkit-box-orient: vertical;
   overflow: hidden;
   min-height: 33px;
+  word-break: break-all;
 `;
 
 const Price = styled.div`
@@ -62,6 +63,7 @@ const Description = styled.div`
   -webkit-line-clamp: 3;
   -webkit-box-orient: vertical;
   overflow: hidden;
+  word-break: break-all;
 `;
 
 const Ratting = styled.div`
@@ -98,12 +100,12 @@ const Item = ({ product, basic }: Props) => {
   return (
     <StyledItem basic={basic}>
       <Image>
-        <Link to={`/product/${product.id}`}>
+        <Link to={`/product/${product.name_ascii}`}>
           <img draggable={false} src={product.image} alt={product.name} />
         </Link>
       </Image>
       <Title>
-        <Link to={`/product/${product.id}`}>{product.name}</Link>
+        <Link to={`/product/${product.name_ascii}`}>{product.name}</Link>
       </Title>
       <Price>
         {product.new_price ? (

@@ -1,5 +1,4 @@
 import Upload from "@/components/Upload";
-import constants from "@/constants/constants";
 import categoryService from "@/services/category.service";
 import { CategoryDto } from "@/services/dtos/Category.dto";
 import { ProductDto } from "@/services/dtos/Product.dto";
@@ -17,7 +16,6 @@ import {
   Space,
   Typography,
 } from "antd";
-import axios from "axios";
 import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 
@@ -59,10 +57,10 @@ const ProductEdit = (props: Props) => {
     if (file) {
       const formData = new FormData();
       formData.append("image", file);
-      const res = await axios.post(constants.API_UPLOAD_URL, formData);
+      const res = await productServices.upload(formData);
       image = res.data;
     }
-    productServices.edit({ ...product, ...data, image }).then(() => {
+    productServices.edit({ ...data, _id: id, image }).then(() => {
       navigate("/admin/product");
       message.success({ content: "Thực hiện thành công", key: "handling" });
     });
@@ -137,7 +135,7 @@ const ProductEdit = (props: Props) => {
                 >
                   <Select placeholder="Lựa chọn danh mục" allowClear>
                     {categories?.map((category) => (
-                      <Select.Option value={category.id} key={category.id}>
+                      <Select.Option value={category._id} key={category._id}>
                         {category.name}
                       </Select.Option>
                     ))}

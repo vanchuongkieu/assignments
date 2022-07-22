@@ -1,5 +1,5 @@
 import { SearchIcon } from "@/assets/icons";
-import { useCallback, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { StyledSearch, StyledSearchResult } from "./StyledSearch";
 import { debounce } from "lodash";
 import { ProductDto } from "@/services/dtos/Product.dto";
@@ -10,53 +10,60 @@ type Props = {};
 type TimeOut = ReturnType<typeof setTimeout>;
 
 const Search = (props: Props) => {
+  const [isOpen, setOpen] = useState<boolean>(false);
+  const [isLoading, setLoading] = useState<boolean>(true);
   const [searchValue, setSearchValue] = useState<string>("");
   const [searchData, setSearchData] = useState<ProductDto[]>([]);
 
-  const debounceDropDown = useCallback(
-    debounce(async (nextValue) => {
-      setSearchValue(nextValue);
-      if (!nextValue) {
-        setSearchData([]);
-        return;
-      }
-      console.log(nextValue);
+  const debounceDropDown = useCallback(debounce(setSearchValue, 500), []);
 
-      const { data } = await productServices.search(nextValue);
+  const fetchDataSearch = async () => {
+    setOpen(!!searchValue);
+    setLoading(!searchValue);
+    if (!searchValue) return setSearchData([]);
+    productServices.search(searchValue).then(({ data }) => {
       setSearchData(data);
-    }, 500),
-    []
-  );
+      setTimeout(() => {
+        setLoading(false);
+      }, 500);
+    });
+  };
+
+  useEffect(() => {
+    fetchDataSearch();
+  }, [searchValue]);
 
   return (
-    <StyledSearch search={searchData.length > 0}>
+    <StyledSearch search={isOpen}>
       <form className="search-form">
         <input
           type="text"
-          value={searchValue}
           className="search-form-input"
           placeholder="Nhập từ khóa tìm kiếm..."
+          onFocus={() => setOpen(!!searchValue)}
           onKeyUp={(e) => debounceDropDown(e.target.value)}
-          onChange={(e) => setSearchValue(e.target.value)}
         />
         <div className="search-form-icon">
           <SearchIcon />
         </div>
       </form>
-      {searchData.length > 0 && (
+      {isOpen && (
         <StyledSearchResult>
-          {searchData.map((product) => (
-            <Link
-              key={product.id}
-              to={`/admin/product/${product.id}/edit`}
-              onClick={() => {
-                setSearchData([]);
-                setSearchValue("");
-              }}
-            >
-              {product.name}
-            </Link>
-          ))}
+          {isLoading ? (
+            <a>Đang tìm kiếm...</a>
+          ) : searchData.length ? (
+            searchData.map((product) => (
+              <Link
+                key={product._id}
+                to={`/admin/product/${product._id}/edit`}
+                onClick={() => setOpen(false)}
+              >
+                {product.name}
+              </Link>
+            ))
+          ) : (
+            <a>Không có kết quả với từ khóa: "{searchValue}"</a>
+          )}
         </StyledSearchResult>
       )}
     </StyledSearch>

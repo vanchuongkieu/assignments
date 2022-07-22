@@ -1,4 +1,5 @@
 export interface CategoryDto {
-  id: number;
+  _id?: string;
   name: string;
+  name_ascii: string;
 }

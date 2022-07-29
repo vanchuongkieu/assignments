@@ -38,7 +38,7 @@ const Home = (props: Props) => {
   }, []);
 
   return (
-    <div>
+    <>
       <StyledContainer>
         <HomeTop>
           <Menu />
@@ -63,7 +63,7 @@ const Home = (props: Props) => {
         <Categories title="PHỤ KIỆN" />
         <Categories title="LINH KIỆN MÁY TÍNH" />
       </StyledContainer>
-    </div>
+    </>
   );
 };
 

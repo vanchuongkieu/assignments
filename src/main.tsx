@@ -5,6 +5,8 @@ import { BrowserRouter } from "react-router-dom";
 import GlobalStyled from "./layouts/styles/globals.style";
 
 import App from "./pages/_app";
+import { Provider } from "react-redux";
+import store from "./redux/store";
 
 ConfigProvider.config({
   theme: {
@@ -17,12 +19,14 @@ const root = ReactDOM.createRoot(mountNode);
 
 root.render(
   <React.StrictMode>
-    <BrowserRouter>
-      <GlobalStyled>
-        <ConfigProvider>
-          <App />
-        </ConfigProvider>
-      </GlobalStyled>
-    </BrowserRouter>
+    <Provider store={store}>
+      <BrowserRouter>
+        <GlobalStyled>
+          <ConfigProvider>
+            <App />
+          </ConfigProvider>
+        </GlobalStyled>
+      </BrowserRouter>
+    </Provider>
   </React.StrictMode>
 );

@@ -1,4 +1,5 @@
 import { ProductDto } from "@/services/dtos/Product.dto";
+import { StyleHTMLAttributes } from "react";
 import styled, { css } from "styled-components";
 import Item from "./Item";
 
@@ -27,13 +28,20 @@ type Props = {
   col?: number;
   products?: ProductDto[];
   basic?: boolean;
+  style?: React.CSSProperties;
+  cartButton?: boolean;
 };
 
-const List = ({ col, products, basic }: Props) => {
+const List = ({ col, products, basic, style, cartButton }: Props) => {
   return (
-    <StyledList col={col} basic={basic}>
+    <StyledList style={style} col={col} basic={basic}>
       {products?.map((product) => (
-        <Item product={product} key={product._id} basic={basic} />
+        <Item
+          product={product}
+          key={product._id}
+          basic={basic}
+          cartButton={cartButton}
+        />
       ))}
     </StyledList>
   );

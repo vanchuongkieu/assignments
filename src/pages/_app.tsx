@@ -7,6 +7,7 @@ import CategoryList from "./admin/Category/CategoryList";
 import ProductAdd from "./admin/Product/ProductAdd";
 import ProductEdit from "./admin/Product/ProductEdit";
 import ProductList from "./admin/Product/ProductList";
+import Cart from "./Cart";
 import Home from "./Home";
 import Product from "./Product";
 
@@ -15,6 +16,7 @@ const App = () => {
     <Routes>
       <Route path="/" element={<ClientLayout />}>
         <Route index element={<Home />} />
+        <Route path="shopping-cart" element={<Cart />} />
         <Route path="product/:id" element={<Product />} />
       </Route>
       <Route path="/admin" element={<AdminLayout />}>

@@ -107,6 +107,215 @@ const Categories = ({ title }: Props) => {
           <span className="title">Title</span>
           <img src={img} alt="" />
         </Item>
+        <Item
+          to=""
+          style={{
+            backgroundColor: `var(${
+              colors[Math.floor(Math.random() * colors.length)]
+            })`,
+          }}
+        >
+          <span className="title">Title</span>
+          <img src={img} alt="" />
+        </Item>
+        <Item
+          to=""
+          style={{
+            backgroundColor: `var(${
+              colors[Math.floor(Math.random() * colors.length)]
+            })`,
+          }}
+        >
+          <span className="title">Title</span>
+          <img src={img} alt="" />
+        </Item>
+        <Item
+          to=""
+          style={{
+            backgroundColor: `var(${
+              colors[Math.floor(Math.random() * colors.length)]
+            })`,
+          }}
+        >
+          <span className="title">Title</span>
+          <img src={img} alt="" />
+        </Item>
+        <Item
+          to=""
+          style={{
+            backgroundColor: `var(${
+              colors[Math.floor(Math.random() * colors.length)]
+            })`,
+          }}
+        >
+          <span className="title">Title</span>
+          <img src={img} alt="" />
+        </Item>
+        <Item
+          to=""
+          style={{
+            backgroundColor: `var(${
+              colors[Math.floor(Math.random() * colors.length)]
+            })`,
+          }}
+        >
+          <span className="title">Title</span>
+          <img src={img} alt="" />
+        </Item>
+        <Item
+          to=""
+          style={{
+            backgroundColor: `var(${
+              colors[Math.floor(Math.random() * colors.length)]
+            })`,
+          }}
+        >
+          <span className="title">Title</span>
+          <img src={img} alt="" />
+        </Item>
+        <Item
+          to=""
+          style={{
+            backgroundColor: `var(${
+              colors[Math.floor(Math.random() * colors.length)]
+            })`,
+          }}
+        >
+          <span className="title">Title</span>
+          <img src={img} alt="" />
+        </Item>
+        <Item
+          to=""
+          style={{
+            backgroundColor: `var(${
+              colors[Math.floor(Math.random() * colors.length)]
+            })`,
+          }}
+        >
+          <span className="title">Title</span>
+          <img src={img} alt="" />
+        </Item>
+        <Item
+          to=""
+          style={{
+            backgroundColor: `var(${
+              colors[Math.floor(Math.random() * colors.length)]
+            })`,
+          }}
+        >
+          <span className="title">Title</span>
+          <img src={img} alt="" />
+        </Item>
+        <Item
+          to=""
+          style={{
+            backgroundColor: `var(${
+              colors[Math.floor(Math.random() * colors.length)]
+            })`,
+          }}
+        >
+          <span className="title">Title</span>
+          <img src={img} alt="" />
+        </Item>
+        <Item
+          to=""
+          style={{
+            backgroundColor: `var(${
+              colors[Math.floor(Math.random() * colors.length)]
+            })`,
+          }}
+        >
+          <span className="title">Title</span>
+          <img src={img} alt="" />
+        </Item>
+        <Item
+          to=""
+          style={{
+            backgroundColor: `var(${
+              colors[Math.floor(Math.random() * colors.length)]
+            })`,
+          }}
+        >
+          <span className="title">Title</span>
+          <img src={img} alt="" />
+        </Item>
+        <Item
+          to=""
+          style={{
+            backgroundColor: `var(${
+              colors[Math.floor(Math.random() * colors.length)]
+            })`,
+          }}
+        >
+          <span className="title">Title</span>
+          <img src={img} alt="" />
+        </Item>
+        <Item
+          to=""
+          style={{
+            backgroundColor: `var(${
+              colors[Math.floor(Math.random() * colors.length)]
+            })`,
+          }}
+        >
+          <span className="title">Title</span>
+          <img src={img} alt="" />
+        </Item>
+        <Item
+          to=""
+          style={{
+            backgroundColor: `var(${
+              colors[Math.floor(Math.random() * colors.length)]
+            })`,
+          }}
+        >
+          <span className="title">Title</span>
+          <img src={img} alt="" />
+        </Item>
+        <Item
+          to=""
+          style={{
+            backgroundColor: `var(${
+              colors[Math.floor(Math.random() * colors.length)]
+            })`,
+          }}
+        >
+          <span className="title">Title</span>
+          <img src={img} alt="" />
+        </Item>
+        <Item
+          to=""
+          style={{
+            backgroundColor: `var(${
+              colors[Math.floor(Math.random() * colors.length)]
+            })`,
+          }}
+        >
+          <span className="title">Title</span>
+          <img src={img} alt="" />
+        </Item>
+        <Item
+          to=""
+          style={{
+            backgroundColor: `var(${
+              colors[Math.floor(Math.random() * colors.length)]
+            })`,
+          }}
+        >
+          <span className="title">Title</span>
+          <img src={img} alt="" />
+        </Item>
+        <Item
+          to=""
+          style={{
+            backgroundColor: `var(${
+              colors[Math.floor(Math.random() * colors.length)]
+            })`,
+          }}
+        >
+          <span className="title">Title</span>
+          <img src={img} alt="" />
+        </Item>
       </List>
     </>
   );

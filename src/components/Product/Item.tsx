@@ -1,11 +1,12 @@
-import { StarIcon } from "@/assets/icons";
+import { StarIcon, ShoppingCartIcon } from "@/assets/icons";
+import { addCart } from "@/redux/actions/cartAction";
+import { useAppDispatch } from "@/redux/hooks";
 import { ProductDto } from "@/services/dtos/Product.dto";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
 
-const StyledItem = styled.div<{ basic?: boolean }>`
+const StyledItem = styled.div`
   width: 100%;
-  min-height: ${({ basic }) => (!basic ? "348px" : "270px")};
   display: flex;
   flex-direction: column;
 `;
@@ -13,6 +14,7 @@ const StyledItem = styled.div<{ basic?: boolean }>`
 const Image = styled.div`
   width: 100%;
   padding: 10px 40px;
+  text-align: center;
   & img {
     max-width: 160px;
     height: 160px;
@@ -87,18 +89,40 @@ const Ratting = styled.div`
   }
 `;
 
+const AddToCartButton = styled.button`
+  margin-top: auto;
+  width: 30px;
+  height: 30px;
+  background-color: red;
+  border: 0;
+  border-radius: 5px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 5px;
+  cursor: pointer;
+  svg {
+    fill: #fff;
+    width: 22px;
+    height: 22px;
+  }
+`;
+
 type Props = {
   product: ProductDto;
   basic?: boolean;
+  cartButton?: boolean;
 };
 
-const Item = ({ product, basic }: Props) => {
+const Item = ({ product, basic, cartButton }: Props) => {
+  const dispatch = useAppDispatch();
+
   const currency = (value: number) => {
     return value.toLocaleString("it-IT") + " đ";
   };
 
   return (
-    <StyledItem basic={basic}>
+    <StyledItem>
       <Image>
         <Link to={`/product/${product.name_ascii}`}>
           <img draggable={false} src={product.image} alt={product.name} />
@@ -117,20 +141,28 @@ const Item = ({ product, basic }: Props) => {
           <span>{currency(product.price)}</span>
         )}
       </Price>
-      {!basic && (
-        <Description>
-          <span>{product.short_description}</span>
-        </Description>
+      {!cartButton ? (
+        <>
+          {!basic && (
+            <Description>
+              <span>{product.short_description}</span>
+            </Description>
+          )}
+          <Ratting>
+            <div className="star">
+              <StarIcon />
+              <StarIcon />
+              <StarIcon />
+              <StarIcon />
+            </div>
+            <a>{Math.floor(Math.random() * 70)} đánh giá</a>
+          </Ratting>
+        </>
+      ) : (
+        <AddToCartButton onClick={() => dispatch(addCart(product))}>
+          <ShoppingCartIcon />
+        </AddToCartButton>
       )}
-      <Ratting>
-        <div className="star">
-          <StarIcon />
-          <StarIcon />
-          <StarIcon />
-          <StarIcon />
-        </div>
-        <a>{Math.floor(Math.random() * 70)} đánh giá</a>
-      </Ratting>
     </StyledItem>
   );
 };

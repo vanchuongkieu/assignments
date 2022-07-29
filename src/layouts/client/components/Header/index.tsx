@@ -34,7 +34,7 @@ const Header = (props: Props) => {
               </div>
             </form>
           </StyledSearch>
-          <Menu cartTotal={15} />
+          <Menu />
         </StyledHeaderContainer>
       </StyledContainer>
     </StyledHeader>

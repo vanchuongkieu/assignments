@@ -4,7 +4,6 @@ import { StyledContainer } from "@/layouts/client/StyledLayout";
 import {
   decreaseUpdateCart,
   increaseUpdateCart,
-  removeCart,
   updateCart,
 } from "@/redux/actions/cartAction";
 import { useAppDispatch, useAppSelector } from "@/redux/hooks";
@@ -134,24 +133,25 @@ const Cart = (props: Props) => {
                       ? currency(cart.new_price * cart.quantity)
                       : currency(cart.price * cart.quantity)}
                   </div>
-                  <button onClick={() => dispatch(removeCart(cart))}>
-                    Delete
-                  </button>
                 </div>
               </div>
             </li>
           ))}
         </CartList>
-        <div
-          style={{
-            display: "flex",
-            justifyContent: "space-between",
-            marginTop: 50,
-          }}
-        >
-          <span>Tổng số tiền</span>
-          <span style={{ color: "red", fontSize: 26 }}>{currency(total)}</span>
-        </div>
+        {total > 0 && (
+          <div
+            style={{
+              display: "flex",
+              justifyContent: "space-between",
+              marginTop: 50,
+            }}
+          >
+            <span>Tổng số tiền</span>
+            <span style={{ color: "red", fontSize: 26 }}>
+              {currency(total)}
+            </span>
+          </div>
+        )}
       </div>
     </StyledContainer>
   );

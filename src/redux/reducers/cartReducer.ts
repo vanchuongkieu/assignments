@@ -4,12 +4,7 @@ import {
   INCREASE_UPDATE_CART,
 } from "@/redux/actions/cartAction";
 import { RootState } from "./../store";
-import {
-  CartAction,
-  ADD_TO_CART,
-  UPDATE_CART,
-  REMOVE_CART,
-} from "./../actions/cartAction";
+import { CartAction, ADD_TO_CART, UPDATE_CART } from "./../actions/cartAction";
 
 export type CartState = {
   carts: CartProduct[];
@@ -47,6 +42,9 @@ const cartReducer = function (state = initialState, action: CartAction) {
         (item) => item._id === action.payload._id
       );
       state.carts[findgUpdateIndex] = action.payload;
+      if (state.carts[findgUpdateIndex].quantity < 1) {
+        state.carts.splice(findgUpdateIndex, 1);
+      }
       return {
         ...state,
         total: totalPrice(state.carts),
@@ -57,7 +55,7 @@ const cartReducer = function (state = initialState, action: CartAction) {
       );
       state.carts[findgDecreaseIndex].quantity--;
       if (state.carts[findgDecreaseIndex].quantity < 1) {
-        state.carts[findgDecreaseIndex].quantity = 0;
+        state.carts.splice(findgDecreaseIndex, 1);
       }
       return {
         ...state,
@@ -72,11 +70,6 @@ const cartReducer = function (state = initialState, action: CartAction) {
         ...state,
         total: totalPrice(state.carts),
       };
-    case REMOVE_CART:
-      const filtered = state.carts.filter(
-        (item) => item._id !== action.payload._id
-      );
-      return { ...state, carts: filtered, total: totalPrice(filtered) };
     default:
       return state;
   }

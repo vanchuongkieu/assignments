@@ -1,5 +1,5 @@
 import { SearchIcon } from "@/assets/icons";
-import { useEffect, useState } from "react";
+import { createRef, useEffect, useState } from "react";
 import { StyledSearch, StyledSearchResult } from "./StyledSearch";
 import { debounce } from "lodash";
 import { ProductDto } from "@/services/dtos/Product.dto";
@@ -7,7 +7,6 @@ import productServices from "@/services/product.services";
 import { Link } from "react-router-dom";
 
 type Props = {};
-type TimeOut = ReturnType<typeof setTimeout>;
 
 const Search = (props: Props) => {
   const [isOpen, setOpen] = useState<boolean>(false);
@@ -64,10 +63,11 @@ const Search = (props: Props) => {
             searchData.map((product) => (
               <Link
                 key={product._id}
-                to={`/admin/product/${product._id}/edit`}
+                to={`/${product.name_ascii}`}
                 onClick={() => setOpen(false)}
               >
-                {product.name}
+                <img src={product.image} alt="" />
+                <span>{product.name}</span>
               </Link>
             ))
           ) : (

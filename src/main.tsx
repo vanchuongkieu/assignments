@@ -4,9 +4,11 @@ import ReactDOM from "react-dom/client";
 import { BrowserRouter } from "react-router-dom";
 import GlobalStyled from "./layouts/styles/globals.style";
 
-import App from "./pages/_app";
+import { PersistGate } from "redux-persist/integration/react";
+import store, { persistor } from "./store";
 import { Provider } from "react-redux";
-import store from "./redux/store";
+
+import App from "./features/App";
 
 ConfigProvider.config({
   theme: {
@@ -20,13 +22,15 @@ const root = ReactDOM.createRoot(mountNode);
 root.render(
   <React.StrictMode>
     <Provider store={store}>
-      <BrowserRouter>
-        <GlobalStyled>
-          <ConfigProvider>
-            <App />
-          </ConfigProvider>
-        </GlobalStyled>
-      </BrowserRouter>
+      <PersistGate loading={null} persistor={persistor}>
+        <BrowserRouter>
+          <GlobalStyled>
+            <ConfigProvider>
+              <App />
+            </ConfigProvider>
+          </GlobalStyled>
+        </BrowserRouter>
+      </PersistGate>
     </Provider>
   </React.StrictMode>
 );

@@ -20,6 +20,5 @@ type CategoyProduct = CategoryDto & {
 };
 
 export interface HomeDataDto {
-  products: ProductDto[];
   productsCategories: CategoyProduct[];
 }

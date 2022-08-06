@@ -33,11 +33,16 @@ export const StyledLogo = styled.div`
 export const StytedUser = styled.a`
   margin-left: auto;
   font-weight: bold;
-  font-size: 16px;
+  font-size: 14px;
   color: var(--gray-2);
 
   @media (max-width: 768px) {
     display: none;
+  }
+
+  a {
+    color: #fff;
+    margin: 0 2px;
   }
 
   &:hover {

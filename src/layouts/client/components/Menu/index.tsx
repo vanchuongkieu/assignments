@@ -5,8 +5,8 @@ import {
   ShoppingBagNewIcon,
 } from "@/assets/icons";
 import { StyledMenu, StyledMenuItem, StyledMenuItemCart } from "./StyledMenu";
-import { useAppSelector } from "@/redux/hooks";
-import { cartLength } from "@/redux/reducers/cartReducer";
+import { useSelector } from "react-redux";
+import { CartTotalSelector } from "@/features/Cart/reducer";
 
 type MenuItemProps = {
   to: string;
@@ -25,10 +25,8 @@ const MenuItem = ({ children, classic, to }: MenuItemProps) => {
   return <StyledMenuItem to={to}>{children}</StyledMenuItem>;
 };
 
-type MenuProps = {};
-
-const Menu = (props: MenuProps) => {
-  const cartTotal = useAppSelector(cartLength);
+const Menu = () => {
+  const cartLength = useSelector(CartTotalSelector);
   return (
     <StyledMenu>
       <MenuItem classic to="tel:0982934000">
@@ -52,7 +50,7 @@ const Menu = (props: MenuProps) => {
         </span>
       </MenuItem>
       <MenuItem to="/shopping-cart">
-        <StyledMenuItemCart count={cartTotal}>
+        <StyledMenuItemCart count={cartLength}>
           <ShoppingBagNewIcon />
         </StyledMenuItemCart>
         <span>

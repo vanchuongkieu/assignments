@@ -3,12 +3,12 @@ import {
   StyledHeader,
   StyledHeaderContainer,
   StyledLogo,
-  StyledSearch,
 } from "./StyledHeader";
 import Menu from "../Menu";
 import LogoImage from "@/assets/images/logo/logo.png";
 import { SearchIcon } from "@/assets/icons";
 import { Link } from "react-router-dom";
+import Search from "../Search";
 
 type Props = {};
 
@@ -22,18 +22,7 @@ const Header = (props: Props) => {
               <img src={LogoImage} />
             </Link>
           </StyledLogo>
-          <StyledSearch>
-            <form className="search-form">
-              <input
-                type="text"
-                className="search-form-input"
-                placeholder="Nhập từ khóa tìm kiếm..."
-              />
-              <div className="search-form-icon">
-                <SearchIcon />
-              </div>
-            </form>
-          </StyledSearch>
+          <Search />
           <Menu />
         </StyledHeaderContainer>
       </StyledContainer>

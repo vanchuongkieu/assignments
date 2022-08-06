@@ -1,9 +1,22 @@
 import { StyledHeader, StyledLogo, StytedUser } from "./StyledHeader";
 import LogoImage from "@/assets/images/logo/logo.png";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import Search from "../Search";
+import { useDispatch, useSelector } from "react-redux";
+import { authAction, UserSelector } from "@/features/Auth/reducer";
+import { message } from "antd";
 
 const Header = () => {
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const user = useSelector(UserSelector);
+
+  const handleLogout = () => {
+    dispatch(authAction.clearAuth());
+    navigate("/login");
+    message.success("Đăng xuất thành công");
+  };
+
   return (
     <StyledHeader>
       <StyledLogo>
@@ -13,7 +26,9 @@ const Header = () => {
         <span>Dashboard</span>
       </StyledLogo>
       <Search />
-      <StytedUser>Xin chào: Kiều Văn Chương</StytedUser>
+      <StytedUser>
+        Xin chào: {user?.name} (<span onClick={handleLogout}>Thoát</span>)
+      </StytedUser>
     </StyledHeader>
   );
 };

@@ -81,6 +81,10 @@ const StyledGlobal = createGlobalStyle`
     border-style: none;
     vertical-align: middle;
   }
+  
+  .ant-message {
+    z-index: 99999;
+  }
 `;
 
 type Props = {

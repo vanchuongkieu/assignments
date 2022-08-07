@@ -31,6 +31,7 @@ const ProductEdit = (props: Props) => {
   const navigate = useNavigate();
   const [form] = Form.useForm<ProductDto>();
   const [file, setFile] = useState<File | null>();
+  const [content, setContent] = useState<string>("");
   const [isSubmit, setSubmit] = useState<boolean>(true);
   const { data: categories } = categoryApi.useCategoryListQuery();
   const { data: product, isLoading } = productApi.useProductSelectedIdQuery(id);
@@ -164,8 +165,15 @@ const ProductEdit = (props: Props) => {
             >
               <ReactQuill
                 theme="snow"
-                onChange={() => {
-                  setSubmit(false);
+                value={content}
+                onChange={(value) => {
+                  const pattern = /^((?!<(\w*)><br\s*\/?><\/(\w*)>).)*$/;
+                  if (pattern.test(value)) {
+                    setContent(value);
+                    setSubmit(false);
+                  } else {
+                    setContent("");
+                  }
                 }}
                 style={{ height: 300, marginBottom: 42 }}
               />

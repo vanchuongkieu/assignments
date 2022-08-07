@@ -1,10 +1,10 @@
 import { SearchIcon } from "@/assets/icons";
 import { createRef, useEffect, useState } from "react";
 import { StyledSearch, StyledSearchResult } from "./StyledSearch";
-import { debounce } from "lodash";
 import { ProductDto } from "@/services/dtos/Product.dto";
 import productServices from "@/services/product.services";
 import { Link } from "react-router-dom";
+import { debounce } from "lodash";
 
 type Props = {};
 

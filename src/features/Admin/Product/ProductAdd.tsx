@@ -30,7 +30,6 @@ const ProductAdd = (props: Props) => {
   const navigate = useNavigate();
   const [form] = Form.useForm<ProductDto>();
   const [file, setFile] = useState<File | null>(null);
-  const [content, setContent] = useState<string>("");
   const { data: categories } = categoryApi.useCategoryListQuery();
   const [createProduct, { isError, isSuccess, error }] =
     productApi.useCreateProductMutation();
@@ -151,16 +150,12 @@ const ProductAdd = (props: Props) => {
               label="Mô tả dài"
             >
               <ReactQuill
-                value={content}
                 onChange={(value) => {
-                  const pattern = /^((?!<(\w*)><br\s*\/?><\/(\w*)>).)*$/;
-                  if (pattern.test(value)) {
-                    setContent(value);
-                  } else {
-                    setContent("");
-                  }
+                  const pattern = /<(\w*)><br><\/(\w*)>/g;
+                  const fromValue = value.replaceAll(pattern, "");
+                  form.setFieldsValue({ description: fromValue ? value : "" });
+                  form.validateFields(["description"]);
                 }}
-                theme="snow"
                 style={{ height: 300, marginBottom: 42 }}
               />
             </Form.Item>

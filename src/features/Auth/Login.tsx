@@ -1,23 +1,30 @@
 import authApi from "@/services/auth.service";
-import { UserDto } from "@/services/dtos/User.dto";
 import { Button, Form, Input, message } from "antd";
+import { useEffect } from "react";
+import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
+import { authAction } from "./reducer";
 
 type Props = {};
 
 const Login = (props: Props) => {
   const navigate = useNavigate();
-  const [onLogin] = authApi.useLoginMutation();
+  const dispatch = useDispatch();
+  const [onLogin, { isError, error, isSuccess }] = authApi.useLoginMutation();
 
-  const onFinish = (values: UserDto) => {
-    onLogin(values).finally(() => {
-      navigate("/");
+  useEffect(() => {
+    if (isSuccess) {
+      navigate("/admin");
       message.success("Đăng nhập thành công");
-    });
-  };
+      dispatch(authAction.authenticated(isSuccess));
+    }
+    if (isError) {
+      message.error((error as { data: string }).data);
+    }
+  }, [isSuccess, isError]);
 
   return (
-    <Form layout="vertical" onFinish={onFinish}>
+    <Form layout="vertical" onFinish={onLogin}>
       <Form.Item label="Email" name="email">
         <Input />
       </Form.Item>

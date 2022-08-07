@@ -3,6 +3,7 @@ import Table from "@/components/Table";
 import categoryApi from "@/services/categories.service";
 import { ProductDto } from "@/services/dtos/Product.dto";
 import productApi from "@/services/products.service";
+import utils from "@/utils";
 import {
   Col,
   Divider,
@@ -68,7 +69,8 @@ const ProductList = (props: Props) => {
   const [filterProducts, { data: filterData, isFetching: isFiltered }] =
     productApi.useLazyFilterProductsQuery();
   const { data: categories } = categoryApi.useCategoryListQuery();
-  const [updateStatus] = productApi.useUpdateStatusMutation();
+  const [updateStatus, { isError, isSuccess, error }] =
+    productApi.useUpdateStatusMutation();
   const [dataSource, setDatasource] = useState<ProductDto[]>();
 
   const columns: ColumnType<any>[] = [
@@ -90,11 +92,11 @@ const ProductList = (props: Props) => {
       align: "center",
       render: (_: any, { price, new_price }: ProductDto) => (
         <Text>
-          {currency(price)}
+          {utils.currency(price)}
           {new_price > 0 && (
             <>
               <Divider type="vertical" />
-              <small>{currency(new_price)}</small>
+              <small>{utils.currency(new_price)}</small>
             </>
           )}
         </Text>
@@ -120,7 +122,7 @@ const ProductList = (props: Props) => {
         <SwitchCustom
           size="small"
           checked={record.status}
-          onChange={() => changeStatus(record)}
+          onChange={() => updateStatus(record)}
         />
       ),
     },
@@ -139,16 +141,14 @@ const ProductList = (props: Props) => {
     },
   ];
 
-  const changeStatus = (values: ProductDto) => {
-    message.loading({ content: "Đang tải", key: "handling" });
-    updateStatus(values).finally(() => {
-      message.success({ content: "Thực hiện thành công", key: "handling" });
-    });
-  };
-
-  const currency = (value: number) => {
-    return value.toLocaleString("it-IT") + " đ";
-  };
+  useEffect(() => {
+    if (isSuccess) {
+      message.success("Thực hiện thành công");
+    }
+    if (isError) {
+      message.error((error as { data: string }).data);
+    }
+  }, [isSuccess, isError]);
 
   useEffect(() => {
     setDatasource(filterValue ? filterData : products);

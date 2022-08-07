@@ -44,7 +44,7 @@ const Galleries = ({ galleries }: Props) => {
             <img src={gallery} />
           </SwiperSlide>
         ))}
-        <SwiperSlide>
+        <SwiperSlide className="order-0">
           <StarOutlineIcon />
           <span>Tình năng nổi bật</span>
         </SwiperSlide>

@@ -3,14 +3,14 @@ import { Link, Navigate, Outlet } from "react-router-dom";
 import LogoImage from "@/assets/images/logo/logo.png";
 import FbImage from "@/assets/images/logo/fb.png";
 import GgImage from "@/assets/images/logo/gg.png";
-import { UserSelector } from "@/features/Auth/reducer";
+import { AuthenticatedSelector } from "@/features/Auth/reducer";
 import { useSelector } from "react-redux";
 
 type Props = {};
 
 function Layout({}: Props) {
-  const user = useSelector(UserSelector);
-  return user ? (
+  const isAuthenticated = useSelector(AuthenticatedSelector);
+  return isAuthenticated ? (
     <Navigate to="/" />
   ) : (
     <S.Wrapper>

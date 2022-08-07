@@ -1,24 +1,27 @@
 import authApi from "@/services/auth.service";
-import { UserDto } from "@/services/dtos/User.dto";
 import { Button, Form, Input, message } from "antd";
-import React from "react";
+import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 
 type Props = {};
 
 const Register = (props: Props) => {
   const navigate = useNavigate();
-  const [onRegister] = authApi.useRegisterMutation();
+  const [onRegister, { isSuccess, isError, error }] =
+    authApi.useRegisterMutation();
 
-  const onFinish = (values: UserDto) => {
-    onRegister(values).finally(() => {
+  useEffect(() => {
+    if (isSuccess) {
       navigate("/login");
       message.success("Đăng ký thành công");
-    });
-  };
+    }
+    if (isError) {
+      message.error((error as { data: string }).data);
+    }
+  }, [isSuccess, isError]);
 
   return (
-    <Form layout="vertical" onFinish={onFinish}>
+    <Form layout="vertical" onFinish={onRegister}>
       <Form.Item label="Họ và tên" name="name">
         <Input />
       </Form.Item>

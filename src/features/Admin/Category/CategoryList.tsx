@@ -62,11 +62,18 @@ const CategoryList = (props: Props) => {
   const [isSubmit, setSubmit] = useState<boolean>(true);
   const [editing, setEditing] = useState<CategoryDto | null>(null);
   const { data: categories, isLoading } = categoryApi.useCategoryListQuery();
-  const [updateCategory, { isSuccess: isUpdateSuccess }] =
-    categoryApi.useUpdateCategoryMutation();
-  const [createCategory, { isSuccess: isCreateSuccess }] =
-    categoryApi.useCreateCategoryMutation();
-  const [updateStatus] = categoryApi.useUpdateStatusMutation();
+  const [
+    updateCategory,
+    { isSuccess: isUpdateSuccess, error: updateError, isError: isUpdateError },
+  ] = categoryApi.useUpdateCategoryMutation();
+  const [
+    createCategory,
+    { isSuccess: isCreateSuccess, error: createError, isError: isCreateError },
+  ] = categoryApi.useCreateCategoryMutation();
+  const [
+    updateStatus,
+    { isSuccess: isStatusSuccess, error: statusError, isError: isStatusError },
+  ] = categoryApi.useUpdateCategoryStatusMutation();
 
   const columns: ColumnType<any>[] = [
     {
@@ -82,7 +89,7 @@ const CategoryList = (props: Props) => {
         <SwitchCustom
           size="small"
           checked={record.status}
-          onChange={() => changeStatus(record)}
+          onChange={() => updateStatus(record)}
         />
       ),
     },
@@ -101,19 +108,34 @@ const CategoryList = (props: Props) => {
     },
   ];
 
-  const changeStatus = (values: CategoryDto) => {
-    message.loading({ content: "Đang tải", key: "handling" });
-    updateStatus(values).finally(() => {
-      message.success({ content: "Thực hiện thành công", key: "handling" });
-    });
-  };
+  useEffect(() => {
+    if (isStatusSuccess) {
+      form.resetFields();
+      message.success("Thực hiện thành công");
+    }
+    if (isStatusError) {
+      message.error((statusError as { data: string }).data);
+    }
+  }, [isStatusSuccess, isStatusError]);
 
   useEffect(() => {
     if (isUpdateSuccess || isCreateSuccess) {
       form.resetFields();
       message.success({ content: "Thực hiện thành công", key: "handling" });
     }
-  }, [isUpdateSuccess, isCreateSuccess]);
+    if (isUpdateError) {
+      message.error({
+        content: (updateError as { data: string }).data,
+        key: "handling",
+      });
+    }
+    if (isCreateError) {
+      message.error({
+        content: (createError as { data: string }).data,
+        key: "handling",
+      });
+    }
+  }, [isUpdateSuccess, isCreateSuccess, isUpdateError, isCreateError]);
 
   const onEdit = (record: CategoryDto) => {
     form.setFieldsValue(record);

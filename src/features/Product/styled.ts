@@ -91,6 +91,12 @@ export const SwiperWrapper = styled.div`
       padding: 5px;
       font-size: 7px;
       white-space: pre-line;
+      order: 1;
+      &.order-0 {
+        order: 0;
+        margin-right: 5px;
+      }
+
       svg {
         width: 18px;
         height: 18px;

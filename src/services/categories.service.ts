@@ -23,10 +23,8 @@ const categoryApi = baseApi.injectEndpoints({
       }),
       invalidatesTags: ["Categories"],
     }),
-    updateStatus: builder.mutation<CategoryDto, CategoryDto>({
+    updateCategoryStatus: builder.mutation<CategoryDto, CategoryDto>({
       query: (body) => {
-        console.log(body);
-
         return {
           url: `/categories/update-status-category/${body._id}`,
           method: "PUT",

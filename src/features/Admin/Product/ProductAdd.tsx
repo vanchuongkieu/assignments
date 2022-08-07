@@ -16,8 +16,10 @@ import {
   Space,
   Typography,
 } from "antd";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import ReactQuill from "react-quill";
+import "react-quill/dist/quill.snow.css";
 
 const { Title, Text } = Typography;
 const { TextArea } = Input;
@@ -29,21 +31,32 @@ const ProductAdd = (props: Props) => {
   const [form] = Form.useForm<ProductDto>();
   const [file, setFile] = useState<File | null>(null);
   const { data: categories } = categoryApi.useCategoryListQuery();
-  const [createProduct] = productApi.useCreateProductMutation();
+  const [createProduct, { isError, isSuccess, error }] =
+    productApi.useCreateProductMutation();
+
+  useEffect(() => {
+    if (isSuccess) {
+      navigate("/admin/product");
+      message.success({ content: "Thực hiện thành công", key: "handling" });
+    }
+    if (isError) {
+      message.error({
+        content: (error as { data: string }).data,
+        key: "handling",
+      });
+    }
+  }, [isSuccess, isError]);
 
   const onFinish = (data: ProductDto) => {
+    message.loading({ content: "Đang tải", key: "handling" });
     if (!file) {
-      message.error("Vui lòng chọn hình ảnh");
+      message.error({ content: "Vui lòng chọn hình ảnh", key: "handling" });
       return;
     }
-    message.loading({ content: "Đang tải", key: "handling" });
     const formData = new FormData();
     formData.append("image", file);
     productServices.upload(formData).then(({ data: image }) => {
-      createProduct({ ...data, image }).finally(() => {
-        navigate("/admin/product");
-        message.success({ content: "Thực hiện thành công", key: "handling" });
-      });
+      createProduct({ ...data, image });
     });
   };
 
@@ -136,7 +149,10 @@ const ProductAdd = (props: Props) => {
               rules={[{ required: true, message: "Vui lòng nhập thông tin" }]}
               label="Mô tả dài"
             >
-              <TextArea rows={5} />
+              <ReactQuill
+                theme="snow"
+                style={{ height: 300, marginBottom: 42 }}
+              />
             </Form.Item>
             <Space style={{ paddingTop: 24 }}>
               <Button

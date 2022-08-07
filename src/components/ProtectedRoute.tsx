@@ -9,7 +9,7 @@ type Props = {
 
 const ProtectedRoute = ({ children }: Props) => {
   const user = useSelector(UserSelector);
-  return user ? <>{children}</> : <Navigate to="/login" />;
+  return user ? children : <Navigate to="/login" />;
 };
 
 export default ProtectedRoute;

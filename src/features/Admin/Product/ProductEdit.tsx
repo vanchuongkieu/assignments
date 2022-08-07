@@ -18,6 +18,8 @@ import {
 } from "antd";
 import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
+import ReactQuill from "react-quill";
+import "react-quill/dist/quill.snow.css";
 
 const { Title, Text } = Typography;
 const { TextArea } = Input;
@@ -32,11 +34,25 @@ const ProductEdit = (props: Props) => {
   const [isSubmit, setSubmit] = useState<boolean>(true);
   const { data: categories } = categoryApi.useCategoryListQuery();
   const { data: product, isLoading } = productApi.useProductSelectedIdQuery(id);
-  const [updateProduct] = productApi.useUpdateProductMutation();
+  const [updateProduct, { isError, isSuccess, error }] =
+    productApi.useUpdateProductMutation();
 
   useEffect(() => {
     form.setFieldsValue({ ...product });
   }, [isLoading]);
+
+  useEffect(() => {
+    if (isSuccess) {
+      navigate("/admin/product");
+      message.success({ content: "Thực hiện thành công", key: "handling" });
+    }
+    if (isError) {
+      message.error({
+        content: (error as { data: string }).data,
+        key: "handling",
+      });
+    }
+  }, [isSuccess, isError]);
 
   const onFinish = async (data: ProductDto) => {
     let image = data.image;
@@ -47,10 +63,7 @@ const ProductEdit = (props: Props) => {
       const res = await productServices.upload(formData);
       image = res.data;
     }
-    updateProduct({ ...data, _id: id, image }).finally(() => {
-      navigate("/admin/product");
-      message.success({ content: "Thực hiện thành công", key: "handling" });
-    });
+    updateProduct({ ...data, _id: id, image });
   };
 
   const checkNewPirce = (_: any, value: number) => {
@@ -66,7 +79,7 @@ const ProductEdit = (props: Props) => {
       <Form
         form={form}
         layout="vertical"
-        onChange={(x) => {
+        onChange={() => {
           setSubmit(false);
         }}
         onFinish={onFinish}
@@ -149,7 +162,13 @@ const ProductEdit = (props: Props) => {
               rules={[{ required: true, message: "Vui lòng nhập thông tin" }]}
               label="Mô tả dài"
             >
-              <TextArea rows={5} />
+              <ReactQuill
+                theme="snow"
+                onChange={() => {
+                  setSubmit(false);
+                }}
+                style={{ height: 300, marginBottom: 42 }}
+              />
             </Form.Item>
             <Space style={{ paddingTop: 24 }}>
               <Button

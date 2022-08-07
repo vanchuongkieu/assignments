@@ -1,10 +1,9 @@
 import { UserSelector } from "@/features/Auth/reducer";
-import React from "react";
 import { useSelector } from "react-redux";
 import { Navigate } from "react-router-dom";
 
 type Props = {
-  children: React.ReactNode;
+  children: JSX.Element;
 };
 
 const ProtectedRoute = ({ children }: Props) => {

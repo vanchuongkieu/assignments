@@ -16,7 +16,9 @@ const Login = (props: Props) => {
     if (isSuccess) {
       navigate("/admin");
       message.success("Đăng nhập thành công");
-      dispatch(authAction.authenticated(isSuccess));
+      setTimeout(() => {
+        dispatch(authAction.authenticated(true));
+      }, 100);
     }
     if (isError) {
       message.error((error as { data: string }).data);
@@ -25,10 +27,21 @@ const Login = (props: Props) => {
 
   return (
     <Form layout="vertical" onFinish={onLogin}>
-      <Form.Item label="Email" name="email">
+      <Form.Item
+        label="Email"
+        name="email"
+        rules={[
+          { required: true, message: "Vui lòng nhập thông tin" },
+          { type: "email", message: "Vui lòng nhập email" },
+        ]}
+      >
         <Input />
       </Form.Item>
-      <Form.Item label="Mật khẩu" name="password">
+      <Form.Item
+        label="Mật khẩu"
+        name="password"
+        rules={[{ required: true, message: "Vui lòng nhập mật khẩu" }]}
+      >
         <Input.Password />
       </Form.Item>
       <Form.Item>

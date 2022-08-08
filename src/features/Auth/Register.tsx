@@ -22,16 +22,35 @@ const Register = (props: Props) => {
 
   return (
     <Form layout="vertical" onFinish={onRegister}>
-      <Form.Item label="Họ và tên" name="name">
+      <Form.Item
+        label="Họ và tên"
+        name="name"
+        rules={[{ required: true, message: "Vui lòng nhập thông tin" }]}
+      >
         <Input />
       </Form.Item>
-      <Form.Item label="Email" name="email">
+      <Form.Item
+        label="Email"
+        name="email"
+        rules={[
+          { required: true, message: "Vui lòng nhập thông tin" },
+          { type: "email", message: "Vui lòng nhập email" },
+        ]}
+      >
         <Input />
       </Form.Item>
-      <Form.Item label="Số điện thoại" name="phone">
+      <Form.Item
+        label="Số điện thoại"
+        name="phone"
+        rules={[{ required: true, message: "Vui lòng nhập thông tin" }]}
+      >
         <Input />
       </Form.Item>
-      <Form.Item label="Mật khẩu" name="password">
+      <Form.Item
+        label="Mật khẩu"
+        name="password"
+        rules={[{ required: true, message: "Vui lòng nhập thông tin" }]}
+      >
         <Input.Password />
       </Form.Item>
       <Form.Item>

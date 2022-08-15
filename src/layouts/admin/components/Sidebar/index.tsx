@@ -1,7 +1,7 @@
 import { Link, useLocation } from "react-router-dom";
 import { Layout, Menu, MenuProps } from "antd";
 import { StyledSider } from "./StyledSidebar";
-import { DropboxIcon, SettingsAltIcon } from "@/assets/icons";
+import { ClipboardAltIcon, DropboxIcon, SettingsAltIcon } from "@/assets/icons";
 
 const Sidebar = () => {
   const location = useLocation();
@@ -18,6 +18,11 @@ const Sidebar = () => {
       label: <Link to="/admin/category">Danh mục</Link>,
       key: "/admin/category",
       icon: <SettingsAltIcon width={25} />,
+    },
+    {
+      label: <Link to="/admin/order">Đơn hàng</Link>,
+      key: "/admin/order",
+      icon: <ClipboardAltIcon width={25} />,
     },
   ];
 

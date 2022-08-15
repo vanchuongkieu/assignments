@@ -231,3 +231,169 @@ export const ButtonGroup = styled.div`
     }
   }
 `;
+
+export const BoxRattingComment = styled.div`
+  width: 100%;
+  border-radius: 5px;
+  margin-top: 15px;
+  padding: 15px;
+  box-shadow: 0 1px 2px 0 rgb(60 64 67 / 10%), 0 2px 6px 2px rgb(60 64 67 / 15%);
+  .empty-ratting {
+    background-color: #eee;
+    padding: 15px;
+    text-align: center;
+  }
+
+  .box-total {
+    display: flex;
+    border: 1px solid rgb(60 64 67 / 20%);
+    border-radius: 5px;
+    margin-bottom: 15px;
+    min-height: 40px;
+    .box-count {
+      width: 30%;
+      border-right: 1px solid rgb(60 64 67 / 20%);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+      padding: 20px;
+      h2 {
+        margin-bottom: 0;
+        font-size: 30px;
+      }
+
+      svg {
+        width: 20px;
+      }
+    }
+    .box-progress {
+      flex: 1;
+      padding: 15px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      .box-progress-item {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        gap: 15px;
+        span {
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          gap: 5px;
+          svg {
+            width: 15px;
+          }
+        }
+        .total-rate {
+          min-width: 70px;
+        }
+      }
+    }
+  }
+`;
+
+export const RattingProgess = styled.div`
+  background-color: #eee;
+  height: 10px;
+  width: 100%;
+  border-radius: 4px;
+  overflow: hidden;
+  .progess {
+    background-color: var(--red-2);
+    height: 100%;
+  }
+`;
+
+export const RattingForm = styled.div`
+  position: fixed;
+  background-color: rgba(0, 0, 0, 0.7);
+  width: 100vw;
+  height: 100vh;
+  top: 0;
+  left: 0;
+  z-index: 9999;
+  form {
+    position: absolute;
+    width: 700px;
+    min-height: 300px;
+    background-color: #fff;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 9999;
+    border-radius: 10px;
+    overflow: hidden;
+    .header {
+      color: #fff;
+      text-align: left;
+      font-size: 16px;
+      font-weight: 600;
+      padding: 10px 15px;
+      background-color: var(--red-2);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      span {
+        font-size: 20px;
+        cursor: pointer;
+      }
+    }
+    .content {
+      padding: 15px;
+      text-align: left;
+      button {
+        width: 100%;
+      }
+    }
+  }
+`;
+
+export const Comment = styled.div`
+  & + & {
+    margin-top: 20px;
+  }
+  .header {
+    .avatar-comment {
+      background-color: #eee;
+      border: 1px solid #ddd;
+      border-radius: 5px;
+      width: 40px;
+      height: 40px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 28px;
+      color: #666;
+    }
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    gap: 10px;
+    font-weight: 700;
+    margin-bottom: 10px;
+  }
+  .content-comment {
+    background-color: #f0f0f0;
+    padding: 15px;
+    border-radius: 10px;
+    margin-left: 40px;
+    .rate {
+      display: flex;
+      align-items: center;
+      justify-content: flex-start;
+      white-space: nowrap;
+      span {
+        margin-right: 5px;
+      }
+      svg {
+        &:first-child {
+          margin-left: 10px;
+        }
+        width: 20px;
+      }
+    }
+  }
+`;

@@ -10,6 +10,9 @@ import ProductList from "./Admin/Product/ProductList";
 import Login from "./Auth/Login";
 import Register from "./Auth/Register";
 import ProtectedRoute from "@/components/ProtectedRoute";
+import Order from "./Cart/Order";
+import OrderList from "./Admin/Order/OrderList";
+import Category from "./Category";
 
 const App = () => {
   return (
@@ -21,6 +24,8 @@ const App = () => {
       <Route path="/" element={<ClientLayout />}>
         <Route index element={<Home />} />
         <Route path="shopping-cart" element={<Cart />} />
+        <Route path="shopping-cart/order" element={<Order />} />
+        <Route path="danh-muc/:ascii" element={<Category />} />
         <Route path=":ascii" element={<ProductDetail />} />
       </Route>
       <Route
@@ -36,6 +41,10 @@ const App = () => {
           <Route index element={<ProductList />} />
           <Route path="new" element={<ProductAdd />} />
           <Route path=":id/edit" element={<ProductEdit />} />
+        </Route>
+        <Route path="order">
+          <Route index element={<OrderList />} />
+          <Route path=":id/detail" element={<ProductEdit />} />
         </Route>
         <Route path="category" element={<CategoryList />} />
       </Route>

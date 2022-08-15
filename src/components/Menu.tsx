@@ -13,6 +13,7 @@ import {
   TvIcon,
   TypeCIcon,
 } from "@/assets/icons";
+import categoryApi from "@/services/categories.service";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
 
@@ -43,92 +44,17 @@ const UL = styled.ul`
 `;
 
 const Menu = () => {
+  const { data: categories } = categoryApi.useCategoryListActiveQuery();
+
   return (
     <UL>
-      <li>
-        <Link to="">
-          <IphoneIcon />
-          Điện thoại
-        </Link>
-        <CaretRightIcon />
-      </li>
-      <li>
-        <Link to="">
-          <LaptopIcon />
-          Laptop
-        </Link>
-        <CaretRightIcon />
-      </li>
-      <li>
-        <Link to="">
-          <IpadIcon />
-          Máy tính bảng
-        </Link>
-        <CaretRightIcon />
-      </li>
-      <li>
-        <Link to="">
-          <IpodIcon />
-          Âm thanh
-        </Link>
-        <CaretRightIcon />
-      </li>
-      <li>
-        <Link to="">
-          <AppleWatchIcon />
-          Đồng hồ
-        </Link>
-        <CaretRightIcon />
-      </li>
-      <li>
-        <Link to="">
-          <SmartHomeIcon />
-          Nhà thông minh
-        </Link>
-        <CaretRightIcon />
-      </li>
-      <li>
-        <Link to="">
-          <TypeCIcon />
-          Phụ kiện
-        </Link>
-        <CaretRightIcon />
-      </li>
-      <li>
-        <Link to="">
-          <PcIcon />
-          PC - Màn hình
-        </Link>
-        <CaretRightIcon />
-      </li>
-      <li>
-        <Link to="">
-          <TvIcon />
-          Tivi
-        </Link>
-        <CaretRightIcon />
-      </li>
-      <li>
-        <Link to="">
-          <OldIcon />
-          Thu cũ
-        </Link>
-        <CaretRightIcon />
-      </li>
-      <li>
-        <Link to="">
-          <OldPhoneIcon />
-          Hàng cũ
-        </Link>
-        <CaretRightIcon />
-      </li>
-      <li>
-        <Link to="">
-          <NewpaperIcon />
-          Khuyến mãi
-        </Link>
-        <CaretRightIcon />
-      </li>
+      {categories &&
+        categories.map((item) => (
+          <li key={item._id}>
+            <Link to={`/danh-muc/${item.name_ascii}`}>{item.name}</Link>
+            <CaretRightIcon />
+          </li>
+        ))}
     </UL>
   );
 };

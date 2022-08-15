@@ -1,4 +1,5 @@
 import { StarIcon } from "@/assets/icons";
+import commentApi from "@/services/comment.service";
 import { ProductDto } from "@/services/dtos/Product.dto";
 import utils from "@/utils";
 import { Link } from "react-router-dom";
@@ -121,6 +122,7 @@ type Props = {
 };
 
 const ListProduct = ({ col, products, basic, style }: Props) => {
+  const { data: ratting } = commentApi.useListAllRattingQuery();
   return (
     <StyledList style={style} col={col} basic={basic}>
       {products?.map((product) => (
@@ -148,15 +150,28 @@ const ListProduct = ({ col, products, basic, style }: Props) => {
               <span>{product.short_description}</span>
             </Description>
           )}
-          <Ratting>
-            <div className="star">
-              <StarIcon />
-              <StarIcon />
-              <StarIcon />
-              <StarIcon />
-            </div>
-            <a>{Math.floor(Math.random() * 70)} đánh giá</a>
-          </Ratting>
+          {ratting && (
+            <Ratting>
+              <div className="star">
+                {[
+                  ...Array(
+                    Math.round(
+                      utils.countStar(
+                        ratting.filter((x) => x.product == product._id)
+                      ).middle
+                    )
+                  ),
+                ].map((item, key) => (
+                  <StarIcon key={key} />
+                ))}
+              </div>
+              <a>
+                {utils.countStar(
+                  ratting.filter((x) => x.product == product._id)
+                ).count + " đánh giá"}
+              </a>
+            </Ratting>
+          )}
         </StyledItem>
       ))}
     </StyledList>

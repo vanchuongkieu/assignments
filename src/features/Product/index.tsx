@@ -1,9 +1,7 @@
 import Title from "@/components/Title";
 import { StyledContainer } from "@/layouts/client/StyledLayout";
 import { ProductDto } from "@/services/dtos/Product.dto";
-import productServices from "@/services/product.services";
 import ListProduct from "@/components/ListProduct";
-import { useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { cartAction } from "../Cart/reducer";
@@ -11,14 +9,21 @@ import * as S from "./styled";
 import Galleries from "./components/Galleries";
 import utils from "@/utils";
 import { Button, message } from "antd";
-import { ShoppingCartIcon } from "@/assets/icons";
+import { ShoppingCartIcon, StarIcon } from "@/assets/icons";
 import productApi from "@/services/products.service";
+import Ratting from "./components/Ratting";
+import RattingProgress from "./components/RattingProgress";
+import RattingForm from "./components/RattingForm";
+import { productDetailAction } from "./reducer";
+import commentApi from "@/services/comment.service";
 
 const Product = () => {
   const { ascii } = useParams();
   const dispatch = useDispatch();
   const { data: product } = productApi.useProductSelectedAsciiQuery(ascii);
   const { data: productRelated } = productApi.useProductRelatedQuery(ascii);
+  const { data: rattings } = commentApi.useListRattingQuery(ascii);
+  const { data: comments } = commentApi.useListCommnetQuery(ascii);
 
   const addCart = (product: ProductDto) => {
     dispatch(cartAction.add(product));
@@ -106,6 +111,73 @@ const Product = () => {
             />
           </>
         )}
+      </StyledContainer>
+      <StyledContainer>
+        <S.BoxRattingComment>
+          <S.Tilte style={{ marginBottom: 15 }}>
+            {product && `Đánh giá và Nhận xét ${product.name}`}
+          </S.Tilte>
+          <RattingProgress ascii={ascii} />
+          <div style={{ textAlign: "center", marginBottom: 15 }}>
+            <Button
+              type="primary"
+              danger
+              onClick={() => dispatch(productDetailAction.openModal(true))}
+            >
+              Đánh giá ngay
+            </Button>
+          </div>
+          {rattings && rattings.comments.length > 0 ? (
+            rattings.comments.map((item, index) => (
+              <S.Comment key={index}>
+                <div className="header">
+                  <div className="avatar-comment">{item.name.split("")[0]}</div>
+                  <div className="name-comment">{item.name}</div>
+                </div>
+                <div className="content-comment">
+                  <div className="rate">
+                    <span>Đánh giá:</span>
+                    <Ratting ratting={item.rate} disabled />
+                  </div>
+                  {item.comment}
+                </div>
+              </S.Comment>
+            ))
+          ) : (
+            <div className="empty-ratting">
+              Hiện chưa có nhận xét nào. Hãy là người nhận xét đầu tiên
+            </div>
+          )}
+        </S.BoxRattingComment>
+        <S.BoxRattingComment>
+          <S.Tilte style={{ marginBottom: 15 }}>
+            {product && "Hỏi và đáp"}
+          </S.Tilte>
+          <Button
+            type="primary"
+            danger
+            onClick={() => dispatch(productDetailAction.openModal(false))}
+            style={{ marginBottom: 15, width: "100%" }}
+          >
+            Gửi câu hỏi
+          </Button>
+          {comments && comments.length > 0 ? (
+            comments.map((item, index) => (
+              <S.Comment key={index}>
+                <div className="header">
+                  <div className="avatar-comment">{item.name.split("")[0]}</div>
+                  <div className="name-comment">{item.name}</div>
+                </div>
+                <div className="content-comment">{item.comment}</div>
+              </S.Comment>
+            ))
+          ) : (
+            <div className="empty-ratting">
+              Hiện chưa có câu hỏi nào. Hãy là người đặt câu hỏi đầu tiên
+            </div>
+          )}
+        </S.BoxRattingComment>
+        <RattingForm product={product?._id} />
       </StyledContainer>
     </>
   );

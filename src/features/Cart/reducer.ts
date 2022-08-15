@@ -103,6 +103,10 @@ const cartSlice = createSlice({
         return total + current.total;
       }, 0);
     },
+    clear: (state) => {
+      state.carts = [];
+      state.total = 0;
+    },
   },
 });
 

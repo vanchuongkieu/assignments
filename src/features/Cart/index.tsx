@@ -114,8 +114,8 @@ const Cart = () => {
         <h2>{utils.currency(total)}</h2>
       </S.TotalPrice>
       <S.ButtonGroup>
-        <Button type="primary" danger>
-          Tiến hành đặt hàng
+        <Button type="primary" danger disabled={!!!carts.length}>
+          <Link to="/shopping-cart/order">Tiến hành đặt hàng</Link>
         </Button>
         <Button danger>
           <Link to="/">Chọn thêm sản phẩm khác</Link>

@@ -79,7 +79,6 @@ const CategoryList = (props: Props) => {
     {
       title: "Tên danh mục",
       dataIndex: "name",
-      align: "center",
     },
     {
       title: "Ẩn/Hiện",
